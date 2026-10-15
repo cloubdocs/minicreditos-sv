@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Formulario breve para orientación general sobre minicréditos en El Salvador.">
+  <title>minicreditos-sv · El Salvador</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #111827;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --soft: #f6f6f5;
+      --max-width: 720px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #fff;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    .site-header {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .header-inner,
+    main,
+    .site-footer {
+      width: min(calc(100% - 40px), var(--max-width));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 64px;
+      font-size: 0.75rem;
+    }
+
+    .brand {
+      color: var(--ink);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      letter-spacing: -0.02em;
+    }
+
+    .header-note {
+      color: var(--muted);
+      text-align: right;
+    }
+
+    section {
+      padding: 72px 0 0;
+    }
+
+    .hero {
+      padding-top: 88px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 680px;
+      margin-bottom: 20px;
+      font-size: clamp(2rem, 8vw, 3.25rem);
+      line-height: 1.1;
+      letter-spacing: -0.055em;
+    }
+
+    h2 {
+      margin-bottom: 24px;
+      font-size: 1.5rem;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+    }
+
+    h3 {
+      margin-bottom: 8px;
+      font-size: 1rem;
+      line-height: 1.35;
+    }
+
+    .lede {
+      max-width: 600px;
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .steps {
+      display: grid;
+      gap: 12px;
+    }
+
+    .step-card,
+    .download-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 24px;
+    }
+
+    .step-number {
+      display: block;
+      margin-bottom: 28px;
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.8rem;
+    }
+
+    .step-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .form-intro {
+      margin-bottom: 28px;
+      color: var(--muted);
+    }
+
+    form {
+      display: grid;
+      gap: 20px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: var(--ink);
+      background: #fff;
+      font: inherit;
+      font-size: 0.95rem;
+    }
+
+    input,
+    select {
+      min-height: 48px;
+    }
+
+    textarea {
+      min-height: 128px;
+      resize: vertical;
+    }
+
+    textarea.large {
+      min-height: 220px;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: 2px solid var(--ink);
+      outline-offset: 2px;
+    }
+
+    button,
+    .button-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      border-radius: 8px;
+      padding: 12px 18px;
+      font: inherit;
+      font-size: 0.92rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    button {
+      border: 1px solid var(--ink);
+      color: #fff;
+      background: var(--ink);
+    }
+
+    button:hover {
+      background: #374151;
+      border-color: #374151;
+    }
+
+    .form-message {
+      margin: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      color: var(--ink);
+      background: var(--soft);
+      font-size: 0.9rem;
+    }
+
+    .download-card {
+      display: grid;
+      gap: 22px;
+    }
+
+    .badge {
+      display: inline-block;
+      width: fit-content;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 9px;
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .download-card h2 {
+      margin-bottom: 0;
+    }
+
+    .button-secondary {
+      width: fit-content;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      background: #fff;
+    }
+
+    .button-secondary:hover {
+      background: var(--soft);
+    }
+
+    .transparency {
+      margin-top: 72px;
+      padding: 28px;
+      background: var(--soft);
+    }
+
+    .transparency .badge {
+      border-color: #9ca3af;
+      color: var(--ink);
+    }
+
+    .transparency h2 {
+      margin-top: 18px;
+      margin-bottom: 12px;
+    }
+
+    .transparency p {
+      margin-bottom: 0;
+      color: #4b5563;
+      font-size: 0.92rem;
+    }
+
+    .site-footer {
+      padding: 72px 0 40px;
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    .site-footer p {
+      max-width: 650px;
+      margin-bottom: 0;
+    }
+
+    @media (min-width: 640px) {
+      .steps {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .download-card {
+        grid-template-columns: 1fr auto;
+        align-items: center;
+      }
+
+      .download-card .badge,
+      .download-card h2 {
+        grid-column: 1;
+      }
+
+      .download-card .badge {
+        grid-row: 1;
+      }
+
+      .download-card h2 {
+        grid-row: 2;
+      }
+
+      .download-card .button-secondary {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .header-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2px;
+        padding: 14px 0;
+      }
+
+      .header-note {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <span class="brand">minicreditos-sv • El Salvador</span>
+      <span class="header-note">Información sin compromiso</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title">Cuéntanos tu situación. Sin montos, sin compromiso.</h1>
+      <p class="lede">Formulario breve para orientación general. No somos banco ni financiera. No pedimos dinero por adelantado.</p>
+    </section>
+
+    <section aria-labelledby="how-it-works-title">
+      <h2 id="how-it-works-title">Cómo funciona</h2>
+      <div class="steps">
+        <article class="step-card">
+          <span class="step-number">01</span>
+          <h3>Llenas datos básicos</h3>
+          <p>Comparte solo la información necesaria para entender tu situación.</p>
+        </article>
+        <article class="step-card">
+          <span class="step-number">02</span>
+          <h3>Nos cuentas para qué y cómo piensas pagarlo</h3>
+          <p>Explica tu necesidad y tu idea general de pago, sin hablar de montos.</p>
+        </article>
+        <article class="step-card">
+          <span class="step-number">03</span>
+          <h3>Te contactamos solo por correo si podemos orientar</h3>
+          <p>La información recibida se usa únicamente con fines informativos.</p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="form-title">
+      <h2 id="form-title">Comparte tu situación</h2>
+      <p class="form-intro">No agregues información bancaria, fotos de DUI ni pagos. Los campos marcados son obligatorios.</p>
+      <form id="information-form">
+        <label for="full-name">
+          Nombre completo
+          <input id="full-name" name="full-name" type="text" autocomplete="name" required>
+        </label>
+
+        <label for="city">
+          Ciudad de residencia
+          <input id="city" name="city" type="text" autocomplete="address-level2" required>
+        </label>
+
+        <label for="email">
+          Correo electrónico
+          <input id="email" name="email" type="email" autocomplete="email" required>
+        </label>
+
+        <label for="income">
+          Ingreso que posee
+          <select id="income" name="income" required>
+            <option value="" selected disabled>Selecciona una opción</option>
+            <option>Empleo formal</option>
+            <option>Negocio propio</option>
+            <option>Remesas</option>
+            <option>Agricultura</option>
+            <option>Otro</option>
+          </select>
+        </label>
+
+        <label for="purpose">
+          ¿Para qué necesita el crédito?
+          <textarea id="purpose" name="purpose" required></textarea>
+        </label>
+
+        <label for="repayment">
+          ¿Cómo piensa pagarlo?
+          <textarea id="repayment" name="repayment" required></textarea>
+        </label>
+
+        <label for="additional-information">
+          Espacio libre para expandirse <span>(opcional)</span>
+          <textarea id="additional-information" name="additional-information" class="large"></textarea>
+        </label>
+
+        <button type="submit">Enviar información</button>
+        <p id="form-message" class="form-message" role="status" hidden>Información recibida. Gracias por compartir tu situación. Esto no constituye solicitud de crédito ni aprobación. Te contactaremos por correo solo con fines informativos.</p>
+      </form>
+    </section>
+
+    <section aria-labelledby="download-title">
+      <div class="download-card">
+        <span class="badge">DOCX</span>
+        <h2 id="download-title">Plantilla informativa</h2>
+        <a class="button-secondary" href="plantilla_solicitud.docx" download>Descargar .docx</a>
+      </div>
+    </section>
+
+    <section class="transparency" aria-labelledby="transparency-title">
+      <span class="badge">PUBLICIDAD</span>
+      <h2 id="transparency-title">Transparencia y publicidad</h2>
+      <p>Este sitio se mantiene con publicidad. Ver un anuncio es completamente voluntario y no afecta tu evaluación. No cobramos por adelantado, no pedimos datos bancarios ni fotos de DUI. La publicidad está separada del formulario y marcada como tal.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Sitio informativo para El Salvador. No somos banco, cooperativa ni financiera regulada por la SSF. No otorgamos créditos directamente. No hay compromiso ni se hablará de montos. Contacto: correo del proyecto. Hecho para Cloudflare Pages.</p>
+  </footer>
+
+  <script>
+    document.getElementById("information-form").addEventListener("submit", function (event) {
+      event.preventDefault();
+      document.getElementById("form-message").hidden = false;
+    });
+  </script>
+</body>
+</html>
