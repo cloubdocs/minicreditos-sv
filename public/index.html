@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Prueba piloto de pre-aprobación de minicréditos en El Salvador. Proceso 100% gratis.">
+  <title>Minicréditos SV · Prueba piloto</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-900 antialiased">
+  <main class="mx-auto w-full max-w-xl px-4 py-4">
+
+    <div id="banner-piloto" style="background:#FEF3C7; border-left:4px solid #F59E0B; padding:12px 14px; border-radius:8px; margin-bottom:18px; text-align:left">
+      <p style="font-weight:800; font-size:15px; margin:0; color:#111827; text-transform:uppercase; line-height:1.2">PRUEBA PILOTO - CUPOS LIMITADOS ESTE MES</p>
+      <p style="margin:6px 0 0 0; font-size:13.5px; line-height:1.35; color:#374151">Estamos probando el servicio con comerciantes pequeños y población en vulnerabilidad de El Salvador. Proceso de pre-aprobación 100% gratis.</p>
+    </div>
+
+    <form id="formulario" class="grid gap-4" novalidate>
+      <label class="grid gap-1 text-sm font-medium" for="nombre">Nombre completo
+        <input id="nombre" name="nombre" type="text" required maxlength="120" autocomplete="name"
+          class="h-12 w-full rounded-lg border border-gray-300 px-3 text-base focus:outline-none focus:ring-2 focus:ring-gray-900">
+      </label>
+
+      <label class="grid gap-1 text-sm font-medium" for="ciudad">Ciudad de residencia
+        <input id="ciudad" name="ciudad" type="text" required maxlength="120" autocomplete="address-level2"
+          class="h-12 w-full rounded-lg border border-gray-300 px-3 text-base focus:outline-none focus:ring-2 focus:ring-gray-900">
+      </label>
+
+      <label class="grid gap-1 text-sm font-medium" for="correo">Correo electrónico
+        <input id="correo" name="correo" type="email" required maxlength="200" autocomplete="email"
+          class="h-12 w-full rounded-lg border border-gray-300 px-3 text-base focus:outline-none focus:ring-2 focus:ring-gray-900">
+      </label>
+
+      <label class="grid gap-1 text-sm font-medium" for="ingreso">Ingreso que posee
+        <select id="ingreso" name="ingreso" required
+          class="h-12 w-full rounded-lg border border-gray-300 bg-white px-3 text-base focus:outline-none focus:ring-2 focus:ring-gray-900">
+          <option value="" selected disabled>Selecciona una opción</option>
+          <option>Empleo formal</option>
+          <option>Negocio propio</option>
+          <option>Remesa</option>
+          <option>Agricultura</option>
+          <option>Otro</option>
+        </select>
+      </label>
+
+      <label class="grid gap-1 text-sm font-medium" for="para_que">¿Para qué necesita el mini crédito?
+        <textarea id="para_que" name="para_que" required minlength="10" maxlength="2000" rows="4"
+          class="w-full rounded-lg border border-gray-300 px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-gray-900"></textarea>
+      </label>
+
+      <label class="grid gap-1 text-sm font-medium" for="como_paga">¿Cómo piensa pagarlo?
+        <textarea id="como_paga" name="como_paga" required maxlength="2000" rows="4"
+          class="w-full rounded-lg border border-gray-300 px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-gray-900"></textarea>
+      </label>
+
+      <label class="grid gap-1 text-sm font-medium" for="extra">Espacio libre para expandirse (opcional)
+        <textarea id="extra" name="extra" maxlength="2000" rows="4"
+          class="w-full rounded-lg border border-gray-300 px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-gray-900"></textarea>
+      </label>
+
+      <label class="flex items-start gap-3 text-sm" for="acepto">
+        <input id="acepto" name="acepto" type="checkbox" required class="mt-0.5 h-6 w-6 shrink-0">
+        <span>Acepto que mis datos se guarden temporalmente para pre-aprobación y se borren semanalmente</span>
+      </label>
+
+      <p id="error" class="hidden rounded-lg border border-red-700 bg-red-50 p-3 text-sm text-red-800" role="alert"></p>
+
+      <button id="btnMandar" type="submit"
+        class="w-full rounded-lg bg-gray-900 px-4 text-base font-semibold text-white disabled:opacity-60 sm:w-auto"
+        style="height:48px">Mandar información</button>
+    </form>
+
+    <div id="gracias" style="display:none; text-align:center; padding:20px">
+      <p style="font-size:18px">✅ Gracias, tu información fue enviada.</p>
+      <p style="margin-top:8px">Uno de nuestros agentes la revisará y recibirás una respuesta por email.</p>
+      <hr style="margin:16px 0">
+      <p style="font-size:14px">Puedes colaborar con nosotros accediendo a este link de publicidad, esto nos permite mantener gratis todo el proceso de pre-aprobación.</p>
+      <div style="display:flex; gap:10px; margin-top:16px; flex-direction:column">
+        <button id="btnSi" style="background:#10B981; color:white; padding:14px; border-radius:8px; font-weight:700">SÍ, DESEO COLABORAR</button>
+        <button id="btnNo" style="background:#E5E7EB; color:#111827; padding:14px; border-radius:8px">NO DESEO</button>
+      </div>
+      <div id="ad-container" style="display:none; margin-top:20px; border:1px dashed #9CA3AF; padding:10px">
+        <small>Publicidad - opcional</small>
+        <div id="monetizer-slot">AQUÍ SE CARGARÁ TU SCRIPT DE MONETAG/ADSTERRA SOLO AL DAR CLIC EN SÍ</div>
+      </div>
+    </div>
+
+    <p class="mt-8 text-xs text-gray-500">Sitio informativo para El Salvador. No somos banco ni financiera regulada. El envío de información no constituye aprobación de crédito.</p>
+  </main>
+
+  <script>
+    const form = document.getElementById('formulario');
+    const btn = document.getElementById('btnMandar');
+    const errorBox = document.getElementById('error');
+
+    function showError(msg) {
+      errorBox.textContent = msg;
+      errorBox.classList.remove('hidden');
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorBox.classList.add('hidden');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const data = Object.fromEntries(new FormData(form));
+      delete data.acepto;
+
+      btn.disabled = true;
+      btn.textContent = 'Enviando...';
+      try {
+        const res = await fetch('/api/solicitudes', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const out = await res.json().catch(() => ({}));
+        if (!res.ok || !out.ok) throw new Error(out.error || 'Error al enviar');
+        form.style.display = 'none';
+        document.getElementById('gracias').style.display = 'block';
+        window.scrollTo(0, 0);
+      } catch (err) {
+        showError('No se pudo enviar. Revisa tus datos e inténtalo de nuevo.');
+        btn.disabled = false;
+        btn.textContent = 'Mandar información';
+      }
+    });
+
+    // URL del script del monetizador; se inyecta solo al dar clic en "SÍ".
+    // PEGAR AQUÍ SCRIPT MONETAG
+    const MONETIZER_SRC = '';
+
+    document.getElementById('btnSi').addEventListener('click', () => {
+      document.getElementById('ad-container').style.display = 'block';
+      const slot = document.getElementById('monetizer-slot');
+      if (!MONETIZER_SRC || slot.dataset.loaded) return;
+      slot.dataset.loaded = '1';
+      slot.textContent = '';
+      const s = document.createElement('script');
+      s.src = MONETIZER_SRC;
+      s.async = true;
+      slot.appendChild(s);
+    });
+
+    document.getElementById('btnNo').addEventListener('click', () => {
+      window.location.href = '/';
+    });
+  </script>
+</body>
+</html>
