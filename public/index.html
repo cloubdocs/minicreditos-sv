@@ -54,5 +54,20 @@ document.getElementById('form').addEventListener('submit', async (e)=>{
 document.getElementById('btnSi').onclick=()=>{ document.getElementById('ad-container').style.display='block'; };
 document.getElementById('btnNo').onclick=()=>{ window.location.href='/'; };
 </script>
+<script>
+  let monetagLoaded = false;
+  function loadMonetag() {
+    if (monetagLoaded) return;
+    monetagLoaded = true;
+    (function(s){s.dataset.zone='12050540',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))
+  }
+  // Busca tu botón verde, si tiene id="btn-colaborar" o es el submit del form
+  document.addEventListener('DOMContentLoaded', function(){
+    const btn = document.querySelector('button[type="submit"], #btn-colaborar, button');
+    if(btn){
+      btn.addEventListener('click', loadMonetag, {once: true});
+    }
+  });
+</script>
 </body>
 </html>
