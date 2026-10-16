@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Admin - MiniCreditos SV</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 p-4">
+<div class="max-w-6xl mx-auto">
+  <h1 class="text-xl font-bold mb-4">Solicitudes</h1>
+
+  <div id="login" class="bg-white rounded-xl shadow p-5 max-w-sm">
+    <label class="block text-sm mb-2">Clave de administrador</label>
+    <input id="key" type="password" class="w-full border rounded p-2 mb-3">
+    <button id="enter" class="bg-blue-600 text-white rounded px-4 py-2">Entrar</button>
+    <p id="err" class="text-red-600 text-sm mt-2"></p>
+  </div>
+
+  <div id="panel" class="hidden">
+    <div class="flex flex-wrap gap-2 mb-3">
+      <input id="q" placeholder="Buscar por nombre, correo o ciudad" class="border rounded p-2 flex-1 min-w-[200px]">
+      <button id="csv" class="bg-green-600 text-white rounded px-4 py-2">Exportar CSV</button>
+      <button id="logout" class="bg-gray-300 rounded px-4 py-2">Salir</button>
+    </div>
+    <p id="count" class="text-sm text-gray-600 mb-2"></p>
+    <div class="overflow-x-auto bg-white rounded-xl shadow">
+      <table class="w-full text-sm text-left">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="p-2">Fecha</th><th class="p-2">Nombre</th><th class="p-2">Ciudad</th>
+            <th class="p-2">Correo</th><th class="p-2">Ingreso</th><th class="p-2">Para qué</th><th class="p-2">Cómo paga</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+let data = [];
+
+function esc(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function filtered() {
+  const q = $('q').value.trim().toLowerCase();
+  if (!q) return data;
+  return data.filter(r => [r.nombre, r.correo, r.ciudad].some(v => String(v ?? '').toLowerCase().includes(q)));
+}
+
+function render() {
+  const list = filtered();
+  $('count').textContent = list.length + ' de ' + data.length + ' solicitudes';
+  $('rows').innerHTML = list.map(r => `<tr class="border-t">
+    <td class="p-2 whitespace-nowrap">${esc(r.creado)}</td>
+    <td class="p-2">${esc(r.nombre)}</td>
+    <td class="p-2">${esc(r.ciudad)}</td>
+    <td class="p-2">${esc(r.correo)}</td>
+    <td class="p-2">${esc(r.ingreso)}</td>
+    <td class="p-2">${esc(r.para_que)}</td>
+    <td class="p-2">${esc(r.como_paga)}</td></tr>`).join('');
+}
+
+async function load(key) {
+  $('err').textContent = '';
+  try {
+    const res = await fetch('/api/admin/solicitudes?key=' + encodeURIComponent(key));
+    if (!res.ok) throw new Error(res.status === 401 ? 'Clave incorrecta' : 'Error ' + res.status);
+    data = await res.json();
+    localStorage.setItem('admin_key', key);
+    $('login').classList.add('hidden');
+    $('panel').classList.remove('hidden');
+    render();
+  } catch (e) {
+    localStorage.removeItem('admin_key');
+    $('panel').classList.add('hidden');
+    $('login').classList.remove('hidden');
+    $('err').textContent = e.message;
+  }
+}
+
+function csvCell(v) {
+  let s = String(v ?? '');
+  if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;
+  return '"' + s.replace(/"/g, '""') + '"';
+}
+
+function exportCsv() {
+  const cols = [['creado','Fecha'],['nombre','Nombre'],['ciudad','Ciudad'],['correo','Correo'],['ingreso','Ingreso'],['para_que','Para qué'],['como_paga','Cómo paga'],['extra','Extra']];
+  const lines = [cols.map(c => csvCell(c[1])).join(',')]
+    .concat(filtered().map(r => cols.map(c => csvCell(r[c[0]])).join(',')));
+  const blob = new Blob(['\ufeff' + lines.join('\r\n')], {type: 'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'solicitudes.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+$('enter').onclick = () => load($('key').value.trim());
+$('key').addEventListener('keydown', e => { if (e.key === 'Enter') $('enter').click(); });
+$('q').oninput = render;
+$('csv').onclick = exportCsv;
+$('logout').onclick = () => { localStorage.removeItem('admin_key'); location.reload(); };
+
+const saved = localStorage.getItem('admin_key');
+if (saved) load(saved);
+</script>
+</body>
+</html>
