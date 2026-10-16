@@ -1,8 +1,10 @@
 # minicreditos-sv
-Sitio informativo de solicitudes preliminares de minicréditos con pagos semanales - El Salvador
+Sitio de pre-aprobación de minicréditos - El Salvador
 
 ## Cloudflare Pages
 
-La Function `functions/api/filtrar.js` recibe las solicitudes en `POST /api/filtrar`. Configura `TUTA_EMAIL`, `BACKUP_EMAIL` y `MAILCHANNELS_FROM_EMAIL` como variables de entorno privadas de Pages; el remitente debe estar autorizado para enviar mediante MailChannels. La función aplica el filtro de palabras y rechaza montos superiores a $20.
+Nuevo flujo D1 - POST /api/solicitudes guarda en Cloudflare D1, sin docx.
 
-Al enviar el formulario, el navegador genera y descarga un resumen `.docx` antes de enviarlo para revisión automática. El generador DOCX (docx 8.5.0) se carga desde un CDN.
+- `GET /api/solicitudes?key=ADMIN_KEY` lista las solicitudes.
+- Variables opcionales: `ADMIN_KEY`, `TUTA_EMAIL`, `MAILCHANNELS_FROM_EMAIL`.
+- Crear la base: `npx wrangler d1 create minicreditos_db` y aplicar `schema.sql` con `npx wrangler d1 execute minicreditos_db --remote --file=schema.sql`.
